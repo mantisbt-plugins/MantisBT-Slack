@@ -17,28 +17,33 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA
  * or see http://www.gnu.org/licenses/.
  */
-
-auth_reauthenticate( );
+auth_reauthenticate();
 access_ensure_global_level( config_get( 'manage_plugin_threshold' ) );
 
-html_page_top( plugin_lang_get( 'title' ) );
+layout_page_header( plugin_lang_get( 'config_title' ) );
+layout_page_begin( 'manage_overview_page.php' );
 
 print_manage_menu( );
 
 ?>
-
-<br />
-
+<div class="col-md-12 col-xs-12">
+<div class="space-10"></div>
+<div class="form-container">
 <form action="<?php echo plugin_page( 'config_edit' )?>" method="post">
+<fieldset>
+<div class="widget-box widget-color-blue2">
+<div class="widget-header widget-header-small">
+    <h4 class="widget-title lighter">
+        <i class="ace-icon fa fa-exchange"></i>
+         <?php echo plugin_lang_get( 'title' ) . ' : ' . plugin_lang_get( 'config' )?>
+    </h4>
+</div>
+
 <?php echo form_security_field( 'plugin_Slack_config_edit' ) ?>
-  <table align="center" class="width75" cellspacing="1">
-
-    <tr>
-      <td class="form-title" colspan="3">
-        <?php echo plugin_lang_get( 'title' ) . ' : ' . plugin_lang_get( 'config' )?>
-      </td>
-    </tr>
-
+<div class="widget-body">
+<div class="widget-main no-padding">
+<div class="table-responsive">
+  <table class="table table-bordered table-condensed table-striped">
     <tr <?php echo helper_alternate_class( )?>>
       <td class="category">
         <?php echo plugin_lang_get( 'url_webhook' )?>
@@ -72,8 +77,7 @@ print_manage_menu( );
         <input type="text" name="bot_name" value="<?php echo plugin_config_get( 'bot_name' )?>" />
       </td>
     </tr>
-
-    <tr <?php echo helper_alternate_class( )?>>
+ 	<tr <?php echo helper_alternate_class( )?>>
       <td class="category">
         <?php echo plugin_lang_get( 'bot_icon' )?>
       </td>
@@ -149,15 +153,17 @@ print_manage_menu( );
         </p>
       </td>
     </tr>
-
-    <tr>
-      <td class="center" colspan="3">
-        <input type="submit" class="button" value="<?php echo lang_get( 'change_configuration' )?>" />
-      </td>
-    </tr>
-
   </table>
+</div>
+</div>
+<div class="widget-toolbox padding-8 clearfix">
+    <input type="submit" class="btn btn-primary btn-white btn-round" value="<?php echo lang_get( 'change_configuration' )?>" />
+</div>
+</div>
+</fieldset>
 </form>
-
+</div>
+</div>
 <?php
-html_page_bottom();
+layout_page_end();
+    
